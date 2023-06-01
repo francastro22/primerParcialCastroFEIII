@@ -1,44 +1,51 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import Card from './Card';
 
-const Formulario = ({setEncuesta}, {encuesta}) => {
+const Formulario = ({ setEncuesta, encuesta }) => {
+  const [showCard, setShowCard] = useState(false);
+  const [error, setError] = useState(false);
 
-    const [show, setShow] = useState(false)
-    const [error, setError] = useState(false)
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if(encuesta.name.length > 3 && encuesta.team.length > 6) {
-            setShow(true)
-            setError(false)
-        } else {
-            setError(true)
-        }
-        
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (encuesta.name.length > 3 && encuesta.team.length > 6) {
+      setShowCard(true);
+      setError(false);
+    } else {
+      setShowCard(false);
+      setError(true);
     }
-    console.log({encuesta})
+  };
 
   return (
     <div>
-        <form onSubmit={handleSubmit}>
-        <label >Nombre del participante: </label>
-        <input type="text" disabled={show} onChange={(e) => setEncuesta((prevEncuesta) => ({...prevEncuesta, name: e.target.value}))}/>
-        <label >Nombre del equipo: </label>
-        <input type="text" disabled={show} onChange={(e) => setEncuesta((prevEncuesta) => ({...prevEncuesta, team: e.target.value}))}/>
+      <form onSubmit={handleSubmit}>
+        <label>Nombre del participante: </label>
+        <input
+          type="text"
+          onChange={(e) =>
+            setEncuesta((prevEncuesta) => ({
+              ...prevEncuesta,
+              name: e.target.value,
+            }))
+          }
+        />
+        <label>Nombre del equipo: </label>
+        <input
+          type="text"
+          onChange={(e) =>
+            setEncuesta((prevEncuesta) => ({
+              ...prevEncuesta,
+              team: e.target.value,
+            }))
+          }
+        />
         <button>Enviar respuesta</button>
-        {error && 'Por favor chequea que la información sea correcta'}
-        </form>
+        {error && <p>Por favor, verifica que la información sea correcta.</p>}
+      </form>
 
-        {show ? 
-            <>
-                <h2> .... </h2>
-            </>
-            :
-            null
-        }
-
+      {showCard && !error && <Card encuesta={encuesta} />}
     </div>
-  )
-}
+  );
+};
 
-export default Formulario
+export default Formulario;
