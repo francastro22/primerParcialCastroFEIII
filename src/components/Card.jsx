@@ -1,11 +1,12 @@
 import React from 'react'
 
-const Card = ({team}) => {
+const Card = ({encuesta}) => {
   return (
     <div className='card'>
+        <h2>Encuesta de equipos de fútbol de Argentina</h2>
+        <h2>Nombre Completo: {encuesta.name}</h2>
+        <h2>Su equipo es: {encuesta.team}</h2>
 
-    <h3>Nombre: {team.name}</h3>
-    <h2>Tu equipo favorito es: {team.team}</h2> 
     </div>
   )
 }

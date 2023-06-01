@@ -1,17 +1,14 @@
 import React from 'react'
+import { useState } from 'react'
 
-const Formulario = ({setTeam}) => {
+const Formulario = ({setEncuesta}, {encuesta}) => {
 
-    const [nombre, setNombre] = useState({
-        nombre: '',
-        equipo: ''
-    })
     const [show, setShow] = useState(false)
     const [error, setError] = useState(false)
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        if(nombre.length > 3 && equipo.length > 4) {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if(encuesta.name.length > 3 && encuesta.team.length > 6) {
             setShow(true)
             setError(false)
         } else {
@@ -19,30 +16,29 @@ const Formulario = ({setTeam}) => {
         }
         
     }
-    console.log(team)
+    console.log({encuesta})
+
   return (
     <div>
-        <form onSubmit={handleSubmit}/>
+        <form onSubmit={handleSubmit}>
         <label >Nombre del participante: </label>
-          <input type="text" disabled={show} onChange={(e) => setNombre({...nombre, nombre: e.target.value })} />
-  
-          <label >Nombre del equipo de futbol </label>
-          <input type="text" disabled={show} onChange={(e) => setNombre({...nombre, equipo: e.target.value })}/>
-          <button>Mandar respuesta</button>
-{error && 'Verifique bien su información'}
-</form>
+        <input type="text" disabled={show} onChange={(e) => setEncuesta((prevEncuesta) => ({...prevEncuesta, name: e.target.value}))}/>
+        <label >Nombre del equipo: </label>
+        <input type="text" disabled={show} onChange={(e) => setEncuesta((prevEncuesta) => ({...prevEncuesta, team: e.target.value}))}/>
+        <button>Enviar respuesta</button>
+        {error && 'Por favor chequea que la información sea correcta'}
+        </form>
 
-{show ? 
-<>
-    <h3>Muchas gracias, {nombre.nombre}!</h3>
-    <h2>Tu equipo de futbol es {nombre.equipo}.</h2>
-</>
-:
-null
-}
+        {show ? 
+            <>
+                <h2> .... </h2>
+            </>
+            :
+            null
+        }
 
-</div>
-)
+    </div>
+  )
 }
 
 export default Formulario

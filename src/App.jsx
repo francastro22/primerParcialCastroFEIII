@@ -1,21 +1,22 @@
 import { useState } from 'react'
-import Card from '../components/Card';
+import Formulario from './components/Formulario'
+import Card from './components/Card'
 import './App.css'
-import Formulario from './components/Formulario';
 
 function App() {
 
-  const [team, setTeam] = useState({
+
+  const [encuesta, setEncuesta] = useState({
     name: '',
     team: ''
    })
 
   return (
     <>
-      <Formulario setTeam={setTeam} />
-      <Card team={team}/>
+     <Formulario setEncuesta={setEncuesta} encuesta={encuesta} />
+     <Card encuesta={encuesta} />
     </>
   );
-}
+  }
 
 export default App
